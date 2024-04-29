@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Получить сигнал</title>
+    <style>
+        .main {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            
+
+        }
+        body {
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            background-size: cover;
+            overflow: hidden;
+            background-image: url(151.png);
+            height: 100vh;
+            background-color: rgba(87, 76, 67, 0.603);
+            background-blend-mode: multiply;
+        }
+
+        #gameBoard {
+            margin: 15px auto;
+            display: grid;
+            height: 200px;
+            width: 200px;
+            border: 2px solid #333;
+            border-radius: 15px;
+            align-items: start;
+            background-color: #724716;
+            position: relative;
+            grid-template-columns: repeat(5, auto);
+            place-content: start;
+        }
+        @keyframes ani {
+            0% {opacity: 0;}
+            100% {opacity: 1;}
+        }
+        .selector {
+            display: flex;
+            height: 114px;
+            position: relative;
+            gap: 1em;
+        }
+        .selector button {
+            height: 49px;
+            width: 53px;
+            font-size: 34px;
+            padding: 0;
+            text-align: center;
+            /* margin-top: 0; */
+            border-radius: 17px;
+        }
+        .cell {
+            align-self: start;
+            display: flex;
+            width: 89px;
+            opacity: 0;
+            justify-content: center;
+            align-items: center;
+            height: 89px;
+            overflow: hidden;  /* NEW */
+            min-width: 0;  
+            border: 2px solid #5c3808a2;
+            background-color: #41280c;
+            border-radius: 10px;
+            margin: 6px;
+            cursor: pointer;
+            animation: ani 1.3s forwards;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        button {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            background-color: #d6aa4a;
+            color: #fff;
+            padding: 17px 24px;
+            border: none;
+            font-size: 20px;
+            border-radius: 24px;
+            cursor: pointer;
+            margin-top: 1em;
+        }
+        img {
+            width: 80px;
+            height: 80px;
+            
+       
+        }
+        .chance {
+            display: block;
+            position: relative;
+            height: 65px;
+            width: 200px;
+            border-radius: 15px;
+            background-color: rgba(34, 33, 33, 0.733);
+            background-blend-mode: multiply;
+        }
+        #myNumber {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            text-align: center;
+            font-size: 22px;
+            color: aliceblue;
+        }
+    .some{
+        height: 530px;
+    }
+    .some p{
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;   
+        font-size: 50px;
+        color: rgb(87, 54, 23);
+        height: 530px;
+    }
+    .lov-block{
+        display: flex;
+        gap: 10px;
+    }
+    .lov-block p {
+        margin-top: 1em;
+        margin-bottom: -0.7em;
+        color: white;
+        font-size: 22px;
+    }
+    </style>
+</head>
+<body>
+
+    
+    <div class="main">
+        <div id="gameBoard">
+            <!-- <div class="some">
+                <p>Нажмите на кнопку "Получить сигнал"</p>
+            </div> -->
+        </div>
+        <div class="lov-block">
+         <p class="txt-lov">Кол-во ловушек: </p><p id="number" class="txt-lov">1</p>   
+        </div>
+        
+        <div class="selector">
+            <button onclick="minus()">-</button><button onclick="plus()">+</button>
+        </div>
+        <div class="chance">
+            <p id="myNumber">Шанс: -</p>
+        </div>
+        <button onclick="showRandomCells()">Получить сигнал</button>
+    </div>
+    
+
+
+
+
+
+<script>
+    function plus(){
+        
+        let number = Number(document.getElementById('number').textContent);
+        console.log(number)
+        if (number == 1){
+            document.getElementById("number").innerHTML =  3
+            
+        }
+        if (number == 3){
+            document.getElementById("number").innerHTML =  5
+            
+        }
+        if (number == 5){
+            
+            document.getElementById("number").innerHTML =  7
+        }
+    }
+    function minus(){
+        let number = Number(document.getElementById('number').textContent);
+        if (number == 3){
+            document.getElementById("number").innerHTML =  1
+            
+        }
+        if (number == 5){
+            document.getElementById("number").innerHTML =  3
+            
+        }
+        if (number == 7){
+            
+            document.getElementById("number").innerHTML =  5
+        }
+    }
+    let board = document.getElementById('gameBoard');
+
+    function showRandomCells() {
+        document.getElementById("myNumber").innerHTML =  "Шанс: -";
+        board.innerHTML = '';
+
+        let highlightedCells = [];
+
+        while (highlightedCells.length < 5 || (highlightedCells.length == 5 && Math.random() < 0.5)) {
+            let randomCellIndex = Math.floor(Math.random() * 9);
+            if (!highlightedCells.includes(randomCellIndex)) {
+                highlightedCells.push(randomCellIndex);
+            }
+        }
+        let i= 0
+        function myLoop(){
+            setTimeout(() => {
+                
+            
+                let cell = document.createElement('div');
+                var star = document.createElement('img');
+                cell.className = 'cell';
+
+                if (highlightedCells.includes(i)) {
+                    cell.appendChild(star);
+                    star.src = 'star.png';
+                }
+                i++; 
+                board.appendChild(cell);
+                if (i < 25){
+                   myLoop()
+                } else {
+                    document.getElementById("myNumber").innerHTML =  "Шанс: " + String(Math.random() * (90 - 80) + 80).substring(0, 5) + " %";
+                }
+
+                }, 0);
+        }
+        myLoop()
+        board.style.display = 'grid';
+
+        
+    }
+</script>
+
+</body>
+</html>
