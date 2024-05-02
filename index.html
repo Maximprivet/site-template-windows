@@ -63,17 +63,17 @@
         .cell {
             align-self: start;
             display: flex;
-            width: 89px;
+            width: 32px;
             opacity: 0;
             justify-content: center;
             align-items: center;
-            height: 89px;
-            overflow: hidden;  /* NEW */
-            min-width: 0;  
+            height: 32px;
+            overflow: hidden;
+            min-width: 0;
             border: 2px solid #5c3808a2;
             background-color: #41280c;
             border-radius: 10px;
-            margin: 6px;
+            margin: 2px;
             cursor: pointer;
             animation: ani 1.3s forwards;
         }
@@ -98,8 +98,8 @@
             margin-top: 1em;
         }
         img {
-            width: 80px;
-            height: 80px;
+            width: 30px;
+            height: 30px;
             
        
         }
@@ -208,7 +208,7 @@
         let highlightedCells = [];
 
         while (highlightedCells.length < 5 || (highlightedCells.length == 5 && Math.random() < 0.5)) {
-            let randomCellIndex = Math.floor(Math.random() * 9);
+            let randomCellIndex = Math.floor(Math.random() * 25);
             if (!highlightedCells.includes(randomCellIndex)) {
                 highlightedCells.push(randomCellIndex);
             }
